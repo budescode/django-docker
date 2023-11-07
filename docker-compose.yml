@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  # Django web application
+  web:
+    container_name: my-django-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True  # Set your Django application environment variables here
+    command: sh ./entrypoint.sh
+
+
+  # PostgreSQL database
+  db:
+    image: postgres:14.1-alpine
+    container_name: my-postgres-db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+          - "5432:5432"
+    env_file:
+      - .env # Include the environment file here
+
+volumes:
+  postgres_data:
