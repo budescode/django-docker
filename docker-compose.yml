@@ -19,7 +19,6 @@ services:
       - DEBUG=True  # Set your Django application environment variables here
     command: sh ./entrypoint.sh
 
-
   # PostgreSQL database
   db:
     image: postgres:14.1-alpine
